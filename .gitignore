@@ -125,3 +125,4 @@ venv.bak/
 dmypy.json
 
 debug.log
+info.log
