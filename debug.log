@@ -3,3 +3,6 @@
 2020-08-04 19:26:54,812 ERROR url image could not be saved status code 403
 2020-08-04 23:33:31,303 ERROR url image could not be saved status code 403
 2020-08-04 23:36:06,722 ERROR url image could not be saved status code 403
+2020-08-09 15:37:11,359 ERROR image not downloaded HTTP Error 403: Forbidden
+2020-08-09 15:38:14,709 ERROR image not downloaded <urlopen error [Errno -2] Name or service not known>
+2020-08-09 15:40:10,495 ERROR url image could not be saved [Errno 2] No such file or directory: '/home/amogh/Pictures/image_url/http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg'

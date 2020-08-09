@@ -1,11 +1,13 @@
 # Import the libraries
 import requests
 import shutil
+import wget
+import urllib.request
 from logging_ import setup_logger
 import logging
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 log_error = setup_logger(name ='error', log_file = 'debug.log', level=logging.ERROR,formatter=formatter)
-log_info = setup_logger(name ='info', log_file = 'info.log', level=logging.ERROR,formatter=formatter)
+log_info = setup_logger(name ='info', log_file = 'info.log', level=logging.INFO,formatter=formatter)
 
 class UrlImage(object):
 
@@ -15,13 +17,19 @@ class UrlImage(object):
 
 
     def file_name(self):
-
-        filename = self.url_.split(',')[-1]
+        """
+        :return:  filename of the image
+        """
+        filename = self.url_.split('/')[-1]
 
         return filename
 
 
     def open_url(self):
+
+        """
+        :return: Saves file once status code is 200
+        """
         try:
             r = requests.get(self.url_,stream =True)
         except Exception as e:
@@ -42,15 +50,36 @@ class UrlImage(object):
 
 
 
+    def wget_image(self):
+        """
+        :wget image - downloads the image given url
+        """
+        try:
+            image_file = wget.download(self.url_,self.path+self.file_name())
+            log_info.info("Image Successfully Downloaded: {0}".format(image_file))
+        except Exception as e:
+            log_error.error("url image could not be saved {}".format(e))
 
 
-if __name__ == '__main__' :
+
+    def urllib_request(self):
+        """
+       :urllib - downloads images from url
+       """
+        try:
+            opener = urllib.request.build_opener()
+            opener.addheaders = [('User-Agent',
+                                  'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+            urllib.request.install_opener(opener)
+
+            urllib.request.urlretrieve(self.url_, self.path+self.file_name())
+            log_info.info("Image Successfully Downloaded: {0}".format(self.path+self.file_name()))
+        except Exception as e:
+            log_error.error("url image could not be saved {}".format(e))
 
 
-    u = UrlImage(url="http://com.dataturks.a96-i23.open.s3.amazonaws.com/2c9fafb06477f4cb0164895548a600a3/dd0c53fe-8300-4422-80e2-7d446ae4a329___STR838.jpg",
-                 path='/home/amogh/Pictures/image_url/')
 
-    u.open_url()
+
 
 
 
