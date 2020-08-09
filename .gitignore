@@ -124,6 +124,4 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-#log
-info.log
 debug.log
